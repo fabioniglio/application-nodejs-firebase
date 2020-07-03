@@ -1,22 +1,18 @@
 import express from 'express';
+import cors from 'cors';
 
-import firebase from 'firebase-admin';
 import routes from './routes';
 
-import serviceAccount from '../serviceAccountKey.json';
+import db from './database';
 
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: 'https://construyo-coding-challenge.firebaseio.com',
-});
+const collection = [];
 
 const app = express();
+app.use(cors({ origin: true }));
 
 app.use(express.json());
 
-app.get('/', (request, response) => {
-  return response.json({ message: 'Hello World' });
-});
+app.use(routes);
 
 app.listen(3333, () => {
   console.log('Server Started on port 3333');
