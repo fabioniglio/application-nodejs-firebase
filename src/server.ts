@@ -3,14 +3,14 @@ import cors from 'cors';
 
 import routes from './routes';
 
-import db from './database';
-
-const collection = [];
-
 const app = express();
 app.use(cors({ origin: true }));
 
 app.use(express.json());
+
+app.get('/hello', (request, response) => {
+  response.json({ message: 'Hello World' });
+});
 
 app.use(routes);
 
