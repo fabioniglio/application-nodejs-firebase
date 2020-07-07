@@ -10,7 +10,7 @@ const ordersRouter = Router();
 ordersRouter.get('/', async (request, response) => {
   const data: FirebaseFirestore.DocumentData[] = [];
 
-  const snapshot = await db.collection('orders').get();
+  const snapshot = await db.collection('orders').where('uid', '>', '').get();
   if (snapshot.empty) {
     console.log('No such document!');
   } else {
@@ -35,7 +35,7 @@ ordersRouter.get('/:orderId', async (request, response) => {
 
 ordersRouter.post('/', async (request, response) => {
   const { title, bookingDate, address, customer } = request.body;
-  console.log(request.body);
+
   const createOrder = new CreateOrderService();
 
   const order = await createOrder.execute({
