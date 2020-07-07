@@ -1,20 +1,20 @@
 import db from '../database';
 
 interface IRequest {
-  id: string;
+  uid: string;
   title: string;
   bookingDate: string;
 }
 
 class UpdateOrderService {
-  public async execute({ id, title, bookingDate }: IRequest): Promise<any> {
+  public async execute({ uid, title, bookingDate }: IRequest): Promise<any> {
     const document = db.collection('orders');
 
     const orderBody = {
       title,
       bookingDate,
     };
-    const order = await document.doc(id).update(orderBody);
+    const order = await document.doc(uid).update(orderBody);
 
     return order;
   }

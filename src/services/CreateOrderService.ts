@@ -27,13 +27,13 @@ class CreateOrderService {
     const document = db.collection('orders');
 
     const orderBody = {
-      id: uuid(),
+      uid: uuid(),
       title,
       bookingDate,
       address,
       customer,
     };
-    const order = await document.doc(orderBody.id).set(orderBody);
+    const order = await document.doc(orderBody.uid).set(orderBody);
 
     return order;
   }

@@ -16,11 +16,21 @@ ordersRouter.get('/', async (request, response) => {
   } else {
     snapshot.forEach(doc => {
       data.push(doc.data());
-      console.log(doc.id, '=>', doc.data());
     });
   }
-
+  console.log(data);
   return response.json(data);
+});
+
+ordersRouter.get('/:orderId', async (request, response) => {
+  const { orderId } = request.params;
+
+  const document = db.collection('orders');
+  const orderRef = document.doc(orderId);
+  const doc = await orderRef.get();
+
+  console.log(doc.data());
+  return response.json(doc.data());
 });
 
 ordersRouter.post('/', async (request, response) => {
@@ -46,7 +56,7 @@ ordersRouter.put('/:orderId', async (request, response) => {
   const updateOrder = new UpdateOrderService();
 
   const orderUpdated = await updateOrder.execute({
-    id: orderId,
+    uid: orderId,
     title,
     bookingDate,
   });
