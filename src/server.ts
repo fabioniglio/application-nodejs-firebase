@@ -8,10 +8,6 @@ app.use(cors({ origin: true }));
 
 app.use(express.json());
 
-app.get('/hello', (request, response) => {
-  response.json({ message: 'Hello World' });
-});
-
 app.use(routes);
 
 app.listen(3333, () => {
